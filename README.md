@@ -29,4 +29,4 @@ The componets are use:
 -**STM32F103C8T6 Microcontroller**
 -**ST-Link V2 Programmer**
 -**CP2102 USB-to-TTL UART Converter**
--**10 kΩ Potentiometer**
+
