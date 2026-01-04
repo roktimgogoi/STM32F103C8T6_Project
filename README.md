@@ -23,7 +23,7 @@ These two registers make the timer fully hardware-controlled, ensuring precise a
 For analog-to-digital conversion (ADC) testing, a 10 kΩ potentiometer is used to provide a variable analog voltage input. The resulting digital data is transferred to the STM32’s internal RAM using Direct Memory Access (DMA). Since the microcontroller cannot retain data permanently unless it is stored in non-volatile memory such as EEPROM, Flash, or an SD card, the data remains temporarily in RAM. Finally, the collected data is transmitted via the UART interface and displayed on a terminal program such as PuTTY.
 
 ###3.2 Hardware Components Used
-**STM32F103C8T6 Microcontroller**
-**ST-Link V2 Programmer**
-**CP2102 USB-to-TTL UART Converter**
-**10 kΩ Potentiometer**
+-**STM32F103C8T6 Microcontroller**
+-**ST-Link V2 Programmer**
+-**CP2102 USB-to-TTL UART Converter**
+-**10 kΩ Potentiometer**
