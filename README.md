@@ -1,83 +1,29 @@
 # STM32F103C8T6_Project
 
-STM32 Bare-Metal ADC Data Acquisition System
-This repository contains the bare-metal implementation of a timer-triggered ADC with DMA and UART on STM32F103C8T6 (Black Pill board), submitted to Unmanned Dynamics India Private Limited.
-​
+Submitted by: **Roktim Probal Gogoi**  
+B.Tech in Power Electronics and Instrumentation  
+Email: `rpgogoi2019@gmail.com`
+Submitted to: **Unmanned Dynamics India Private Limited**  
+Date: **4 Jan 2026**
 
-The system achieves precise 100 Hz sampling using hardware timer, DMA for efficient data transfer, and UART for PC visualization via PuTTY.
-​
 
-Features
-Timer-Triggered Sampling: 100 Hz precise intervals using STM32 hardware timer (PSC and ARR for 72 MHz clock division).
-​
+## 1. Introduction
 
-ADC Conversion: 12-bit ADC captures variable analog input from 10k potentiometer (0-3.3V).
-​
+This project is implemented using bare-metal programming, which allows direct access to hardware resources such as timer registers, USART registers, ADC registers, and GPIO registers. It is completely free from any Arduino framework, HAL/LL libraries, or operating system abstraction layer.
+In modern embedded systems, low latency, precise timing, and efficient CPU utilization are essential requirements. To meet these demands, hardware peripherals such as timers, ADCs, DMA controllers, and Universal Synchronous/Asynchronous Receiver-Transmitters (USARTs) are used in an interrupt-driven and hardware-triggered manner.
+This project demonstrates a bare-metal implementation on an STM32 ARM Core Board (STM32F103C8T6) microcontroller, where, A hardware timer generates a 100 Hz trigger to generate precise sampling intervals. The trigger initiates an ADC conversion, that aquitsion system collect the raw analog value and convert to digital and ADC results are transferred to memory using DMA. Upon DMA completion, data is sent via UART to transmit data into PC. The results are displayed on a PC using a serial terminal (PuTTY). The use of bare-metal programming ensures complete control over the hardware and eliminates unnecessary abstraction layers.
+This report explains the hardware setup, peripheral configuration, system architecture, and verification process in detail that highlighting the advantages of bare-metal embedded system design.
 
-DMA Transfer: Automatic DMA moves ADC results to RAM without CPU intervention.
-​
+## 3. Methodology
 
-UART Output: Data transmitted at 9600 baud to serial terminal for real-time monitoring.
-​
+In this project, the timer on the STM32 microcontroller is configured to operate at 100 Hz. Given that the STM32 system clock runs at 72 MHz, the system can count up to 72,000,000 cycles per second. This frequency is too high for most timing applications, so two hardware dividers are used to slow it down:
+1.	PSC (Prescaler), and
+2.	ARR (Auto-Reload Register).
+These two registers make the timer fully hardware-controlled, ensuring precise and stable timing operation.
+For analog-to-digital conversion (ADC) testing, a 10 kΩ potentiometer is used to provide a variable analog voltage input. The resulting digital data is transferred to the STM32’s internal RAM using Direct Memory Access (DMA). Since the microcontroller cannot retain data permanently unless it is stored in non-volatile memory such as EEPROM, Flash, or an SD card, the data remains temporarily in RAM. Finally, the collected data is transmitted via the UART interface and displayed on a terminal program such as PuTTY.
 
-Pure Bare-Metal: No HAL, LL, Arduino, or OS layers—direct register access in Embedded C.
-​
-
-Hardware Setup
-Microcontroller: STM32F103C8T6 (ARM Cortex-M3, 72 MHz).
-​
-
-Programmer: ST-Link V2 (SWD interface).
-​
-
-UART Bridge: CP2102 USB-to-TTL (COM port, 9600 bps, 8N1).
-​
-
-Input: 10k Potentiometer to ADC pin.
-​
-
-Connect as per standard Black Pill pinout: Timer to ADC trigger, ADC to pot, UART to CP2102.
-​
-
-Software Requirements
-IDE: Keil uVision (Embedded C development).
-​
-
-Programmer: STM32CubeProgrammer (HEX flashing).
-​
-
-Terminal: PuTTY (for UART data view).
-​
-
-Installation & Build
-Clone this repository.
-
-Open project in Keil uVision.
-
-Build to generate HEX file.
-
-Flash using STM32CubeProgrammer via ST-Link.
-​
-
-Usage
-Power the Black Pill (3.3V).
-
-Connect potentiometer and adjust for varying ADC input.
-
-Open PuTTY: Select COM port, 9600 baud, view real-time ADC values (100 Hz updates).
-​
-
-Rotate pot to see voltage changes reflected in digital output.
-​
-
-Example PuTTY output shows raw ADC values streamed continuously.
-​
-
-System Flow
-text
-Timer (100 Hz) → Triggers ADC → DMA to RAM → UART Tx → PuTTY Terminal
-Project Report
-Detailed report available: Report_Unmanned-Dynamics-India-Private-Limited.pdf.
-​
-
-Author
+###3.2 Hardware Components Used
+**STM32F103C8T6 Microcontroller**
+**ST-Link V2 Programmer**
+**CP2102 USB-to-TTL UART Converter**
+**10 kΩ Potentiometer**
